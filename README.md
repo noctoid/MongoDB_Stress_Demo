@@ -30,3 +30,9 @@ Go to MongoDB official website and download the installer.
 
 # Run Benchmark
 Todo
+
+# Goodies
+To Run MongoDB and storing documents in a designated directory.
+```
+mongod --dbpath /the/directory/you/want
+```
