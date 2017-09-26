@@ -1,9 +1,17 @@
 #!/usr/local/bin/python3
-import connector
+from connector import connect, insertBatch, purge
+from generate_data import genDict
+from goodies import timeit, incIndex
 
-client = connector.connect()
-db = client.insert_test_1
+@timeit
+def doInsertTest(client, quantity, docInDict):
+    result = insertBatch(client, 'stress', 'tescolle', docInDict)
+    print(result)
 
-for i in range(59950):
-    result = db.co.insert_one({"name":i})
-    print(result.inserted_id)
+
+
+if __name__ == "__main__":
+    c = connect()
+    purge(c, 'stress')
+    insertBatch(c, 'stress', 'tescolle', [genDict(i, 1000) for i in range(1000)])
+    c.close()

@@ -4,6 +4,7 @@
 from pymongo import MongoClient
 import time
 from goodies import printWithTimestamp as tprint
+from goodies import timeit
 
 # Fetch the crendentials from the config file
 def _fetchCredentials():
@@ -24,9 +25,16 @@ def connect():
     return MongoClient()
 
 # will insert the dictionary passing into this func into the database
+@timeit
 def insert(client, db, colle, d):
     cur = client[db]
     result = cur[colle].insert_one(d)
+    return result
+
+@timeit
+def insertBatch(client,db,colle, listOfDict):
+    cur = client[db]
+    result = cur[colle].insert_many(listOfDict)
     return result
 
 def update(client, d):
@@ -40,6 +48,9 @@ def retrieveAll(client, db, colle):
     cursor = db[colle].find()
     for document in cursor:
         print(document)
+
+def purge(client, db):
+    client.drop_database(db)
 
 
 if __name__ == "__main__":
