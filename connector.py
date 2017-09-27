@@ -35,6 +35,9 @@ def insertBatch(client,db,colle, listOfDict):
     result = cur[colle].insert_many(listOfDict)
     return result
 
+def insertBin(client, db, colle, binary):
+    pass
+
 def update(client, d):
     pass
 
