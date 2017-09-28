@@ -41,8 +41,9 @@ def insertBin(client, db, colle, binary):
 def update(client, d):
     pass
 
-def retrieveOne(client, index):
-    pass
+def retrieveOne(client, db, colle, index):
+    cur = client[db][colle].find({"key": index})
+    return [doc for doc in cur]
 
 def retrieveAll(client, db, colle):
     cur = client[db][colle].find()
