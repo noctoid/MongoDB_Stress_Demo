@@ -2,6 +2,7 @@
 
 # the connector that will connect to the MongoDB instance and do all the bad stuff
 from pymongo import MongoClient
+import gridfs
 import time
 from goodies import printWithTimestamp as tprint
 
@@ -23,7 +24,9 @@ def connect():
     if info:
         return MongoClient("mongodb://"+info["server"]+":"+info["port"])
     return MongoClient()
-
+# get the collection size
+def getColleSize(client, db, colle):
+    return client[db][colle].count()
 # will insert the dictionary passing into this func into the database
 def insert(client, db, colle, d):
     cur = client[db]
@@ -38,11 +41,25 @@ def insertBatch(client,db,colle, listOfDict):
 def insertBin(client, db, colle, binary):
     pass
 
+def gridfsStart(client, dbname):
+    return gridfs.GridFS(client[dbname])
+
+def gridfsInsert(fs, payload, name):
+    return fs.put(bytes(payload, encoding='utf-8'), filename=name)
+
+def gridfsRetrieveByFilename(fs, name):
+    return [doc for doc in fs.find({'filename': name}, no_cursor_timeout=True)]
+
 def update(client, d):
     pass
 
-def retrieveOne(client, db, colle, index):
-    cur = client[db][colle].find({"key": index})
+def retrieveOne(client, db, colle, condition):
+    cur = client[db][colle].find({"key": condition})
+    return [doc for doc in cur]
+
+def retrieveRange(client, db, colle, istart, iend):
+    cur = client[db][colle].find({"key": {"$lt": iend, "$gt": istart}})
+    tprint(len([d for d in cur]), "documents retrieved!")
     return [doc for doc in cur]
 
 def retrieveAll(client, db, colle):
