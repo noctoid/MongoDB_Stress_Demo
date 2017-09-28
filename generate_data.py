@@ -4,6 +4,7 @@ from goodies import timeit
 def randomASCII():
     return chr(randrange(97,122))
 
+@timeit
 def getRandomASCIIbyLen(length):
     return "".join([randomASCII() for i in range(length)])
 

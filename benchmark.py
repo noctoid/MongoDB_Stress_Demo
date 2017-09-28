@@ -6,11 +6,10 @@ from goodies import printWithTimestamp as tprint
 
 @timeit
 def doInsertTest(client, docInDict):
-    result = insertBatch(client, 'stress', 'tescolle', docInDict)
-    print(result)
+    return insertBatch(client, 'stress', 'tescolle', docInDict)
 
 @timeit
-def doReadTest(client):
+def doReadAllTest(client):
     tprint(len(retrieveAll(client, 'stress', 'tescolle')), " record read from the database")
 
 @timeit
@@ -22,15 +21,14 @@ def doDropTest(client, db):
     purge(client, db)
 
 if __name__ == "__main__":
+    # connecting to the db
     c = connect()
-
-    payload = getRandomASCIIbyLen(1000)
-
-    doInsertTest(c, [genDict(i, payload) for i in range(1000)])
-
-    doReadTest(c)
-
+    payload_size = int(input("Document Size: "))
+    doc_quantity = int(input("Number of Document: "))
+    payload = getRandomASCIIbyLen(payload_size)
+    # Database Insert Test
+    result = doInsertTest(c, [genDict(i, payload) for i in range(doc_quantity)])
+    # Database Reading All Collection Test
+    doReadAllTest(c)
     # doDropTest(c, 'stress')
-
-
     c.close()

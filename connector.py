@@ -41,7 +41,7 @@ def insertBin(client, db, colle, binary):
 def update(client, d):
     pass
 
-def retrieveOne(client):
+def retrieveOne(client, index):
     pass
 
 def retrieveAll(client, db, colle):
