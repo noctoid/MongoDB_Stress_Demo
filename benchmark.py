@@ -114,40 +114,40 @@ if __name__ == "__main__":
     doInsertTest(c, 'test1', 'colle6', [genDict(i, genLongDict(i, "a", 1)) for i in range(1000000)])
 
     # doDropTest(c, 'test1')
-    #
-    #
-    #
+
+
+
     # Test 2
     # Also creating another db that stores docs across several collection_size
-    # tprint("----> Running Test2 for Insert / Multiple Collections <----")
-    # # db1 -> 100k doc, 10 lines each in 1 collections, 100k doc each colle
-    # tprint(" <1m docs 10 lines each; in 1 collection, containing 1m ")
-    # doInsertTest(c, 'test2-1', 'colle0', [genDict(i, genLongDict(i, "a", 10)) for i in range(1000000)])
-    # # db2 -> 100k doc, 10 lines each in 10 collections, 10k doc each colle
-    # tprint(" <1m docs 10 lines each; in 10 collections, containing 100k> ")
-    # for i in range(10):
-    #     doInsertTest(c, 'test2-2', 'colle'+str(i), [genDict(i, genLongDict(i, "a", 10)) for i in range(100000)])
-    # # db3 -> 100k doc, 10 lines each in 100 collections, 1k doc each colle
-    # tprint(" <1m docs 10 lines each; in 100 collections, containing 10k> ")
-    # for i in range(100):
-    #     doInsertTest(c, 'test2-3', 'colle'+str(i), [genDict(i, genLongDict(i, "a", 10)) for i in range(10000)])
+    tprint("----> Running Test2 for Insert / Multiple Collections <----")
+    # db1 -> 100k doc, 10 lines each in 1 collections, 100k doc each colle
+    tprint(" <1m docs 10 lines each; in 1 collection, containing 1m ")
+    doInsertTest(c, 'test2-1', 'colle0', [genDict(i, genLongDict(i, "a", 10)) for i in range(1000000)])
+    # db2 -> 100k doc, 10 lines each in 10 collections, 10k doc each colle
+    tprint(" <1m docs 10 lines each; in 10 collections, containing 100k> ")
+    for i in range(10):
+        doInsertTest(c, 'test2-2', 'colle'+str(i), [genDict(i, genLongDict(i, "a", 10)) for i in range(100000)])
+    # db3 -> 100k doc, 10 lines each in 100 collections, 1k doc each colle
+    tprint(" <1m docs 10 lines each; in 100 collections, containing 10k> ")
+    for i in range(100):
+        doInsertTest(c, 'test2-3', 'colle'+str(i), [genDict(i, genLongDict(i, "a", 10)) for i in range(10000)])
 
 
     # Test 3
-    # tprint("----> Running Test3 for Read / Entire DB <----")
-    # tprint(" >>> Reading 1 doc, 1m lines <<<")
-    # tprint(doReadAllTest(c, "test2-1", 'colle0'), " records read")
-    #
-    # tprint("----> Running Test3 for Read / Entire DB <----")
-    # tprint(" >>> Reading 1 doc, 100k lines <<<")
-    # tprint(doReadAllTest(c, "test2-2", 'colle0'), " records read")
-    #
-    # tprint("----> Running Test3 for Read / Entire DB <----")
-    # tprint(" >>> Reading 1 doc, 10k lines <<<")
-    # tprint(doReadAllTest(c, "test2-3", 'colle0'), " records read")
+    tprint("----> Running Test3 for Read / Entire DB <----")
+    tprint(" >>> Reading 1 doc, 1m lines <<<")
+    tprint(doReadAllTest(c, "test2-1", 'colle0'), " records read")
+
+    tprint("----> Running Test3 for Read / Entire DB <----")
+    tprint(" >>> Reading 1 doc, 100k lines <<<")
+    tprint(doReadAllTest(c, "test2-2", 'colle0'), " records read")
+
+    tprint("----> Running Test3 for Read / Entire DB <----")
+    tprint(" >>> Reading 1 doc, 10k lines <<<")
+    tprint(doReadAllTest(c, "test2-3", 'colle0'), " records read")
 
     # Test 4
-    tprint("*** Running Test3 for Read / for one doc ***")
+    tprint("*** Running Test4 for Read / for one doc ***")
     tprint(doReadOneTest(c, "test1", "colle1", 1), " records read")
 
     tprint(doReadOneTest(c, "test1", "colle2", 1), " records read")
@@ -161,7 +161,7 @@ if __name__ == "__main__":
     tprint(doReadOneTest(c, "test1", "colle6", 1), " records read")
 
     # Test 5
-    tprint("*** Running Test3 for Read / with given criteria ***")
+    tprint("*** Running Test5 for Read / with given criteria ***")
 
     tprint(doReadOneTest(c, "test1", "colle1", 1), " records read")
 
